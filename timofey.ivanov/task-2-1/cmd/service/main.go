@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+
 	"github.com/Kabisdox/task-2-1/internal/department"
 )
 
@@ -29,6 +30,7 @@ func numChecks() (int, error) {
 	if number < minCount || number > maxCount {
 		return 0, fmt.Errorf("%w: must be between %d and %d", errInvalidNum, minCount, maxCount)
 	}
+
 	return number, nil
 }
 
@@ -51,18 +53,19 @@ func readConstraint() (string, int, error) {
 }
 
 func processDepart(dept *department.Department, employeesCount int) error {
-	for i := 0; i < employeesCount; i++ {
+	for range employeesCount {
 		operator, temp, err := readConstraint()
 		if err != nil {
 			return err
 		}
 
 		if err := dept.ApplyConstraint(operator, temp); err != nil {
-			return err
+			return fmt.Errorf("failed to apply constraint: %w", err)
 		}
 
 		fmt.Println(dept.OptimalTemp())
 	}
+
 	return nil
 }
 
@@ -73,7 +76,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	for i := 0; i < numberOfDepartments; i++ {
+	for range numberOfDepartments {
 		numberOfEmployees, err := numChecks()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)

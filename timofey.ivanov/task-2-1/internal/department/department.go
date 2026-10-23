@@ -13,7 +13,7 @@ type Department struct {
 }
 
 func NewDepartment(minTemp, maxTemp int) *Department {
-	return &Department {
+	return &Department{
 		minTemp: minTemp,
 		maxTemp: maxTemp,
 	}
@@ -40,5 +40,6 @@ func (d *Department) OptimalTemp() int {
 	if d.minTemp > d.maxTemp {
 		return -1
 	}
+
 	return d.minTemp
 }
