@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"github.com/Kabisdox/task-2-1/internal/department"
 )
 
 const (
