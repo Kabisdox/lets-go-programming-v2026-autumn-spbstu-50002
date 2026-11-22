@@ -19,6 +19,7 @@ func main() {
 	}
 
 	var xmlParser parser.Parser = parser.XMLParser{}
+
 	var jsonSaver writer.Saver = writer.JSONWriter{}
 
 	items, err := xmlParser.Parse(cfg.InputFile)
