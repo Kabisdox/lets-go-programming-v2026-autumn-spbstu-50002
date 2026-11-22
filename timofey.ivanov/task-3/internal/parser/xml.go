@@ -7,9 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/net/html/charset"
-
 	"github.com/Kabisdox/task-3/internal/domain"
+	"golang.org/x/net/html/charset"
 )
 
 type XMLParser struct{}
