@@ -18,7 +18,6 @@ func main() {
 		panic(err)
 	}
 
-	// Dependency injection: main решает, какие реализации использовать.
 	var p parser.Parser = parser.XMLParser{}
 	var w writer.Saver = writer.JSONWriter{}
 
