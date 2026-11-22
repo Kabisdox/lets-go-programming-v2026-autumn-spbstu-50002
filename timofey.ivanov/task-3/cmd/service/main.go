@@ -18,17 +18,17 @@ func main() {
 		panic(err)
 	}
 
-	var p parser.Parser = parser.XMLParser{}
-	var w writer.Saver = writer.JSONWriter{}
+	var xmlParser parser.Parser = parser.XMLParser{}
+	var jsonSaver writer.Saver = writer.JSONWriter{}
 
-	items, err := p.Parse(cfg.InputFile)
+	items, err := xmlParser.Parse(cfg.InputFile)
 	if err != nil {
 		panic(err)
 	}
 
 	sorter.ByValueDesc(items)
 
-	if err := w.Save(cfg.OutputFile, items); err != nil {
+	if err := jsonSaver.Save(cfg.OutputFile, items); err != nil {
 		panic(err)
 	}
 }

@@ -15,37 +15,37 @@ import (
 type XMLParser struct{}
 
 func (XMLParser) Parse(path string) ([]domain.Currency, error) {
-	f, err := os.Open(path)
+	xmlFile, err := os.Open(path)
 	if err != nil {
 		return nil, fmt.Errorf("open xml: %w", err)
 	}
 
 	defer func() {
-		_ = f.Close()
+		_ = xmlFile.Close()
 	}()
 
-	dec := xml.NewDecoder(f)
-	dec.CharsetReader = charset.NewReaderLabel
+	decoder := xml.NewDecoder(xmlFile)
+	decoder.CharsetReader = charset.NewReaderLabel
 
 	var doc domain.ValCursXML
 
-	if err := dec.Decode(&doc); err != nil {
+	if err := decoder.Decode(&doc); err != nil {
 		return nil, fmt.Errorf("decode xml: %w", err)
 	}
 
 	result := make([]domain.Currency, 0, len(doc.Valutes))
 
-	for _, v := range doc.Valutes {
-		normalized := strings.ReplaceAll(v.Value, ",", ".")
+	for _, valute := range doc.Valutes {
+		normalized := strings.ReplaceAll(valute.Value, ",", ".")
 
 		parsed, err := strconv.ParseFloat(normalized, 64)
 		if err != nil {
-			return nil, fmt.Errorf("parse value %q: %w", v.Value, err)
+			return nil, fmt.Errorf("parse value %q: %w", valute.Value, err)
 		}
 
 		result = append(result, domain.Currency{
-			NumCode:  v.NumCode,
-			CharCode: v.CharCode,
+			NumCode:  valute.NumCode,
+			CharCode: valute.CharCode,
 			Value:    parsed,
 		})
 	}
